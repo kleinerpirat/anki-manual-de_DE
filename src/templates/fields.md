@@ -4,62 +4,59 @@
 
 ## Basic Replacements
 
-The most basic template looks something like this:
+Die einfachste Vorlage sieht in etwa so aus:
 
     {{Front}}
 
-When you place text within curly brackets, Anki looks for a field by
-that name, and replaces the text with the actual content of the field.
+Wenn du Text in doppelte geschweifte Klammern umfasst, sucht Anki nach einem Feld
+mit diesem Namen und ersetzt den Text mit dem Inhalt jenes Feldes.
+Dabei wird eine exakte Groß-/Kleinschreibung vorausgesetzt. Wenn du ein Feld namens "Vorderseite"
+hast, wird die Syntax `{{vorderseite}}` also nicht funktionieren.
 
-Field names are case sensitive. If you have a field named `Front`,
-writing `{{front}}` will not work properly.
+Vorlagen sind nicht auf den Inhalt deiner Felder begrenzt. Du kannst auch beliebigen
+Text in deinen Vorlagen inkludieren. Wenn du z. B. Hauptstädte lernst und einen Notiztyp
+mit dem Feld "Land" erstellt hast, könnte die Vorlage wie folgt aussehen:
 
-Your templates are not limited to a list of fields. You can also include
-arbitrary text on your templates. For example, if you’re studying
-capital cities, and you’ve created a note type with a “Country” field,
-you might create a front template like this:
+    Wie heißt die Hauptstadt von {{Land}}?
 
-    What's the capital city of {{Country}}?
+Die Standardvorlage sieht folgendermaßen aus:
 
-The default back template will look something like this:
-
-    {{FrontSide}}
+    {{Vorderseite}}
 
     <hr id=answer>
 
-    {{Back}}
+    {{Rückseite}}
 
-This means “show me the text that’s on the front side, then a divider
-line, and then the Back field”.
+Das bedeutet: "Zeig mir den Text, der auf der Vorderseite steht, dann einen Trennstrich
+(HTML-Element `<hr>`) und dann die Rückseite."
 
-The 'id=answer' part tells Anki where the divider is between the
-question and the answer. This allows Anki to automatically scroll to the
-spot where the answer starts when you press 'show answer' on a long card
-(especially useful on mobile devices with small screens). If you don’t
-want a horizontal line at the beginning of the answer, you can use
-another HTML element such as a paragraph or div instead.
+Der Teil "id=answer" sagt Anki, wo sich die Grenze zwischen Frage und Antwort befindet.
+Das erlaubt Anki, nach einem Klick auf "Antwort anzeigen" automatisch an die Stelle zu scrollen,
+wo die Antwort beginnt. Das ist insbesondere bei mobilen Endgeräten mit kleinen Bildschirmen praktisch.
+Wenn du keinen Trennstrich zwichen Frage und Antwort haben willst, kannst du auch ein beliebiges
+anderes HTML-Element verwenden (z. B. `<p>` oder `<div>`).
 
-## Newlines
+## Zeilenumbrüche
 
-Card templates are like web pages, which means a special command is required
-to create a new line. For example, if you wrote the following in the template:
+Kartenvorlagen basieren wie Webseiten auf HTML, weshalb für Zeilenumbrüche ein spezielles HTML-Element
+benötigt wird. Um das zu illustrieren, betrachten wir die folgende Vorlage:
 
-    one
-    two
+    eins
+    zwei
 
-In the preview, you’d actually see:
+Die Ausgabe würde dann so aussehen:
 
-    one two
+    eins zwei
 
-To add a new line, you need to add a &lt;br&gt; code to the end of a
-line, like so:
+Um einen Zeilenumbruch einzufügen, musst du das HTML-Element `<br>`
+an das Zeilenende anhängen:
 
     one<br>
     two
 
-The br code stands for "(line) br(eak)".
+`<br>`steht für _line break_ (engl. "Zeilenumbruch").
 
-The same applies for fields. If you want to display two fields, one on
+Dasselbe gilt für Felder. Wenn du zwei Felder zeilenweise darstellen willst, würdeIf you want to display two fields, one on
 each line, you would use
 
     {{Field 1}}<br>
